@@ -13,11 +13,13 @@ This is a portfolio/learning project, built over ~3 weeks of steady evening work
 - API layer: FastAPI
 - Vector store: Chroma (local, no external dependency) — swap to a hosted
   store (Pinecone/Weaviate) only if there's a specific reason to
-- Embeddings: pick one and note it here once chosen (e.g. OpenAI
-  text-embedding-3-small, or a local sentence-transformers model)
+- Embeddings: local `sentence-transformers` (`all-MiniLM-L6-v2`) — keeps the
+  pipeline to a single external API dependency (Claude), no second API key
+  or per-embedding cost. Revisit in Week 2 if retrieval quality warrants a
+  hosted model.
 - LLM: Claude API (Sonnet) for generation and for eval judging
 - Testing: pytest
-- Dependency management: uv or poetry (pick one, note here)
+- Dependency management: uv
 
 ## Coding conventions
 - Type hints on all function signatures
@@ -30,10 +32,12 @@ This is a portfolio/learning project, built over ~3 weeks of steady evening work
   independently testable
 
 ## How to run things
-- Install deps: `<fill in once chosen>`
-- Run the API: `<fill in>`
-- Run tests: `pytest`
-- Run the eval harness: `<fill in once built>`
+- Install deps: `uv sync`
+- Copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`
+- Build the index (after dropping documents into `data/raw/`): `uv run python scripts/build_index.py`
+- Run the API: `uv run uvicorn rag_qa.api:app --reload`
+- Run tests: `uv run pytest`
+- Run the eval harness: `<fill in once built — Week 2>`
 
 ## Project phases (do not skip ahead)
 1. **Week 1 — Core pipeline**: document ingestion, chunking, embeddings,

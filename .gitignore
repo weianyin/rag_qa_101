@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# vector store persistence
+chroma_db/
+
+# any downloaded embedding models cached locally
+.cache/
+
+# user-supplied source documents (not committed — see data/raw/README.md)
+data/raw/*
+!data/raw/README.md
+
+.DS_Store
